@@ -1,4 +1,4 @@
-# 🛡️ Sentinel Node: Enterprise Cloud Threat Intelligence & SIEM Infrastructure
+# 🛡️ Sentinel Node: Enterprise Cloud Threat Intelligence & SIEM Infrastructure Lab
 
 [![Architecture](https://img.shields.io/badge/Architecture-Hybrid_SIEM%2FNSM-blue)](#-system-architecture)
 [![OS](https://img.shields.io/badge/OS-Ubuntu_24.04_LTS-orange)](https://ubuntu.com/)
