@@ -1,0 +1,6 @@
+﻿*.log
+*.pcap
+.env
+*.tar.gz
+prom_data/
+grafana_data/
