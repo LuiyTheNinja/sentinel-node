@@ -6,7 +6,8 @@
 [![IPS](https://img.shields.io/badge/IPS-CrowdSec-green)](https://crowdsec.net/)
 [![Forensics](https://img.shields.io/badge/Forensics-Zeek%20%7C%20CyberChef-purple)](https://zeek.org/)
 
-> **Autonomous Security Operations Center (SOC) & Threat Intelligence Platform**  
+> **Autonomous Security Operations Center (SOC) & Threat Intelligence Platform:**
+
 > An enterprise-grade, resource-optimized security operations node engineered on a hardened cloud instance. Sentinel Node captures active internet threat traffic via high-interaction honeypots, aggregates structured telemetry into a unified Grafana Loki SIEM, executes background Network Security Monitoring (NSM), and provides an integrated environment for payload deobfuscation and session replay.
 
 ---
@@ -173,6 +174,7 @@ sudo docker stats --no-stream
 
 Promtail continuously scrapes honeypot event streams and host authentication logs, attaching structured labels for rapid querying in Grafana Loki.
 
+```
 ┌─────────────────────────┐
 │ Cowrie JSON Event Stream│
 └────────────┬────────────┘
@@ -186,6 +188,7 @@ Promtail continuously scrapes honeypot event streams and host authentication log
 ┌─────────────────────────┐ | json
 │ Grafana Loki Storage │ | line_format "{{.src_ip}} -> {{.input}}"
 └─────────────────────────┘
+```
 
 Core LogQL SOC Dashboard Queries
 
