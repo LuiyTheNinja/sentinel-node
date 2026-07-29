@@ -1,0 +1,11 @@
+﻿type: leaky
+name: custom/honeypot-bf
+description: "Detect rapid SSH honeypot brute force"
+filter: "evt.Parsed.program == 'cowrie'"
+leakspeed: "10s"
+capacity: 5
+groupby: "evt.Meta.source_ip"
+blackhole: 1m
+labels:
+  service: ssh
+  type: brute-force

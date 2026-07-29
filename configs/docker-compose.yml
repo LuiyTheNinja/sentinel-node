@@ -1,0 +1,93 @@
+﻿services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: unless-stopped
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prom_data:/prometheus
+    ports:
+      - "127.0.0.1:9090:9090"
+    deploy:
+      resources:
+        limits:
+          memory: 120M
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node_exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    ports:
+      - "127.0.0.1:9100:9100"
+    deploy:
+      resources:
+        limits:
+          memory: 40M
+
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3100:3100"
+    deploy:
+      resources:
+        limits:
+          memory: 150M
+
+  promtail:
+    image: grafana/promtail:latest
+    container_name: promtail
+    restart: unless-stopped
+    volumes:
+      - /var/log:/var/log:ro
+      - ./promtail-config/promtail.yml:/etc/promtail/config.yml:ro
+      - ./cowrie-logs:/cowrie-logs:ro
+    deploy:
+      resources:
+        limits:
+          memory: 60M
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
+    deploy:
+      resources:
+        limits:
+          memory: 250M
+
+  cyberchef:
+    image: mpepping/cyberchef:latest
+    container_name: cyberchef
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8085:8000"
+    deploy:
+      resources:
+        limits:
+          memory: 80M
+
+  cowrie:
+    image: cowrie/cowrie:latest
+    container_name: cowrie
+    restart: unless-stopped
+    ports:
+      - "0.0.0.0:22:2222"
+      - "0.0.0.0:23:2223"
+    volumes:
+      - ./cowrie-logs:/cowrie/cowrie-git/var/log/cowrie
+    deploy:
+      resources:
+        limits:
+          memory: 150M
+
+volumes:
+  prom_data:
+  grafana_data:

@@ -1,0 +1,15 @@
+﻿# ==============================================================================
+# SENTINEL NODE - GRAFANA LOKI DASHBOARD LOGQL QUERIES
+# ==============================================================================
+
+# Panel 1: Live Attacker Command Telemetry
+{job="cowrie"} |= "cowrie.command.input" | json | line_format "IP: {{.src_ip}} | CMD: {{.input}}"
+
+# Panel 2: Brute-Force Credential Harvesting
+{job="cowrie"} |= "cowrie.login" | json | line_format "Attacker IP: {{.src_ip}} | User: {{.username}} | Pass: {{.password}}"
+
+# Panel 3: Attack Velocity Rate (Req/Sec)
+sum by (src_ip) (rate({job="cowrie"} |= "login" [1m]))
+
+# Panel 4: Top Target Usernames
+topk(10, sum by (username) (count_over_time({job="cowrie"} |= "login" | json [1h])))
